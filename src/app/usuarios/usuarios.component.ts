@@ -58,13 +58,13 @@ export class UsuariosComponent implements OnInit {
       console.log(this.usuarioForm.value);
       this.usuarioservice.saveUsuario(this.usuarioForm.value).subscribe(resp => {
         Swal.fire('usuario guardado ', 'completado', 'success');
+        this.usuarioForm.reset();
+
+
       }, error => {
         console.error(error)
         Swal.fire('ha surgido un error por favor vuleva a mandar el formulario!', 'Usuario no guardado', 'error');
-
       }
-
-
       )
 
     } else {
