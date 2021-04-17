@@ -18,6 +18,12 @@ export class MascotasService {
   public saveMascota(mascota: any): Observable<any> {
     return this.httpClient.post(this.URL, mascota);
   }
+
+
+
+  public deleteMascota(id: any): Observable<any> {
+    return this.httpClient.delete(this.URL + "delete/" + id);
+  }
 }
 
 

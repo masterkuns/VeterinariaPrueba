@@ -71,6 +71,29 @@ export class MascotasComponent implements OnInit {
     }
   }
 
+  eliminar(mascotas: any) {
+    this, this.mascotasService.deleteMascota(mascotas.id).subscribe(resp => {
+      if (resp) {
+        this.mascotas.pop(mascotas)
+        Swal.fire('mascota eliminada Eliminado ', 'completado', 'success');
+
+      }
+    })
+  }
+
+  editar(mascota: any) {
+    this.mascotaForm.setValue({
+      id: mascota.id,
+      nombre: mascota.nombre,
+      raza: mascota.raza,
+      usuario: mascota.usuario,
+      sexo: mascota.sexo,
+
+
+    })
+  }
+
+
 
 
 }

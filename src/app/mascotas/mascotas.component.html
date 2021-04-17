@@ -63,7 +63,22 @@
         <td>{{ item.raza }}</td>
         <td>{{ item.usuario.id }}</td>
         <td>{{ item.sexo }}</td>
-        <td></td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success formbtn"
+            (click)="editar(item)"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger formbtn"
+            (click)="eliminar(item)"
+          >
+            Eliminar
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
