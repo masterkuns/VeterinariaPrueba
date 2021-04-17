@@ -1,0 +1,70 @@
+<div class="formusuario">
+  <h2>Crear Mascota</h2>
+  <form [formGroup]="mascotaForm" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" formControlName="nombre" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Raza</label>
+      <input type="text" formControlName="raza" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Numero identifiacion</label>
+      <select
+        formControlName="usuario"
+        class="form-control"
+        name="usuario"
+        id="usuario"
+      >
+        <option [ngValue]="item" *ngFor="let item of usuarios">
+          {{ item.documentoIdentificacion }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Sexo</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="sexo"
+        class="form-control"
+      >
+        <option value="Masculino">Macho</option>
+        <option value="Femenino">Hembra</option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="mascotaForm.invalid"
+      class="btn btn-primary"
+    >
+      Guardar
+    </button>
+  </form>
+</div>
+<div class="">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>APELLIDO</th>
+        <th>TIPO DOCUMENTO</th>
+        <th>SEXO</th>
+        <th>OPCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mascotas">
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.raza }}</td>
+        <td>{{ item.usuario.id }}</td>
+        <td>{{ item.sexo }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

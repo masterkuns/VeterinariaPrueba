@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsuariosService } from '../services/usuarios/usuarios.service'
-import { ColaboradorService } from '../services/colaborador/colaborador.service'
-import { HistoriaClinicaService } from '../services/historiaClinica/historia-clinica.service'
-import { MascotasService } from '../services/mascotas/mascotas.service'
-import { DetallesHistoriaClinicaService } from '../services/detallesHistoriaClinica/detalles-historia-clinica.service'
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
+import { UsuariosService } from '../services/usuarios/usuarios.service';
+
+import { HistoriaClinicaService } from '../services/historiaClinica/historia-clinica.service';
+import { MascotasService } from '../services/mascotas/mascotas.service';
+import { DetallesHistoriaClinicaService } from '../services/detallesHistoriaClinica/detalles-historia-clinica.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-usuarios',
@@ -30,7 +30,7 @@ export class UsuariosComponent implements OnInit {
 
     public fb: FormBuilder,
     public usariosService: UsuariosService,
-    public colaboradorService: ColaboradorService,
+
     public historiaClinicaService: HistoriaClinicaService,
     public mascotasService: MascotasService,
 
