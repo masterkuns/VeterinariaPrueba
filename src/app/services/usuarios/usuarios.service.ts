@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UsuariosService {
-  private URL = "http://localhost:8082/usuarios"
+
+  private URL = "http://localhost:8082/usuario/";
   constructor(private httpClient: HttpClient) { }
 
 
@@ -16,8 +17,8 @@ export class UsuariosService {
     return this.httpClient.get(this.URL);
   }
 
-  public savePersona(persona: any): Observable<any> {
-    return this.httpClient.post(this.URL, persona);
+  public saveUsuario(usuario: any): Observable<any> {
+    return this.httpClient.post(this.URL, usuario);
   }
 
   // public deletePersona(id): Observable<any> {
