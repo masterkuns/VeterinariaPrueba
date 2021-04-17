@@ -16,6 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpBackend, HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MascotasComponent } from './mascotas/mascotas.component';
+import { HistoriaClinicaComponent } from './historia-clinica/historia-clinica.component';
+import { ColaboradorComponent } from './colaborador/colaborador.component';
+import { DetallesHistoriaClinicaComponent } from './detalles-historia-clinica/detalles-historia-clinica.component';
 
 
 
@@ -23,7 +26,10 @@ import { MascotasComponent } from './mascotas/mascotas.component';
   declarations: [
     AppComponent,
     UsuariosComponent,
-    MascotasComponent
+    MascotasComponent,
+    HistoriaClinicaComponent,
+    ColaboradorComponent,
+    DetallesHistoriaClinicaComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@
       <input type="text" formControlName="raza" class="form-control" />
     </div>
     <div class="form-group">
-      <label>Numero identifiacion</label>
+      <label>Numero identificacion del dueño </label>
       <select
         formControlName="usuario"
         class="form-control"
@@ -30,8 +30,8 @@
         formControlName="sexo"
         class="form-control"
       >
-        <option value="Masculino">Macho</option>
-        <option value="Femenino">Hembra</option>
+        <option value="Macho">Macho</option>
+        <option value="Hembra">Hembra</option>
       </select>
     </div>
 
@@ -50,8 +50,8 @@
       <tr>
         <th>ID</th>
         <th>NOMBRE</th>
-        <th>APELLIDO</th>
-        <th>TIPO DOCUMENTO</th>
+        <th>RAZA</th>
+        <th>Documento dueño</th>
         <th>SEXO</th>
         <th>OPCIONES</th>
       </tr>
@@ -61,7 +61,7 @@
         <td>{{ item.id }}</td>
         <td>{{ item.nombre }}</td>
         <td>{{ item.raza }}</td>
-        <td>{{ item.usuario.id }}</td>
+        <td>{{ item.usuario.NOMBRE }}</td>
         <td>{{ item.sexo }}</td>
         <td>
           <button
