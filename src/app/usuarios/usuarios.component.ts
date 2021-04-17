@@ -5,6 +5,8 @@ import { ColaboradorService } from '../services/colaborador/colaborador.service'
 import { HistoriaClinicaService } from '../services/historiaClinica/historia-clinica.service'
 import { MascotasService } from '../services/mascotas/mascotas.service'
 import { DetallesHistoriaClinicaService } from '../services/detallesHistoriaClinica/detalles-historia-clinica.service'
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -52,17 +54,29 @@ export class UsuariosComponent implements OnInit {
 
 
   guardar(): void {
-    this.usuarioservice.saveUsuario(this.usuarioForm.value).subscribe(resp => {
+    if (this.usuarioForm.valid) {
+      console.log(this.usuarioForm.value);
+      this.usuarioservice.saveUsuario(this.usuarioForm.value).subscribe(resp => {
+        Swal.fire('usuario guardado ', 'completado', 'success');
+      }, error => {
+        console.error(error)
+        Swal.fire('ha surgido un error por favor vuleva a mandar el formulario!', 'Usuario no guardado', 'error');
 
-    }, error => {
-      console.error(error)
+      }
 
+
+      )
+
+    } else {
+      Swal.fire('Debes llenar todos los campos del formulario!', '???????', 'question');
     }
-    )
-
   }
 
+
+
 }
+
+
 
 
 
