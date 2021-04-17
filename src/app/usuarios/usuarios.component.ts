@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
-
+  usuarios: any;
   usuarioForm = new FormGroup({
     nombre: new FormControl(),
     apellido: new FormControl(),
@@ -33,7 +33,7 @@ export class UsuariosComponent implements OnInit {
     public colaboradorService: ColaboradorService,
     public historiaClinicaService: HistoriaClinicaService,
     public mascotasService: MascotasService,
-    public usuarioservice: UsuariosService,
+
     public detallesHistoriaClinicaService: DetallesHistoriaClinicaService
   ) {
 
@@ -50,15 +50,24 @@ export class UsuariosComponent implements OnInit {
       estado: ['', Validators.required],
       sexo: ['', Validators.required],
     });
+
+    this.usariosService.getAllUsuarios().subscribe(resp => {
+      this.usuarios = resp;
+    },
+      error => { console.error(error) }
+    )
+
   }
 
 
   guardar(): void {
     if (this.usuarioForm.valid) {
       console.log(this.usuarioForm.value);
-      this.usuarioservice.saveUsuario(this.usuarioForm.value).subscribe(resp => {
+      this.usariosService.saveUsuario(this.usuarioForm.value).subscribe(resp => {
         Swal.fire('usuario guardado ', 'completado', 'success');
         this.usuarioForm.reset();
+        this.usuarios = this.usuarios.filter((usuario: { id: any; }) => resp.id != usuario.id);
+        this.usuarios.push(resp);
 
 
       }, error => {
@@ -72,7 +81,26 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
+  eliminar(usuario: any) {
+    this, this.usariosService.deleteUsuario(usuario.id).subscribe(resp => {
+      if (resp) {
+        this.usuarios.pop(usuario)
+        Swal.fire('usuario Eliminado ', 'completado', 'success');
 
+      }
+    })
+  }
+  editar(usuarios: any) {
+    this.usuarioForm.setValue({
+      id: usuarios.id,
+      nombre: usuarios.nombre,
+      apellido: usuarios.apellido,
+      tipoDocumento: usuarios.tipoDocumento,
+      documentoIdentificacion: usuarios.documentoIdentificacion,
+      estado: usuarios.estado,
+      sexo: usuarios.sexo,
+    })
+  }
 
 }
 

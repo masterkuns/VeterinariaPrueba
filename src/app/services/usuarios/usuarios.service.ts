@@ -13,12 +13,17 @@ export class UsuariosService {
 
 
 
+
   public getAllUsuarios(): Observable<any> {
     return this.httpClient.get(this.URL);
   }
 
   public saveUsuario(usuario: any): Observable<any> {
     return this.httpClient.post(this.URL, usuario);
+  }
+
+  public deleteUsuario(id: any): Observable<any> {
+    return this.httpClient.delete(this.URL + "delete/" + id);
   }
 
   // public deletePersona(id): Observable<any> {
