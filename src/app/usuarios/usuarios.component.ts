@@ -51,6 +51,13 @@ export class UsuariosComponent implements OnInit {
       sexo: ['', Validators.required],
     });
 
+    this.mostrarTodos();
+
+  }
+
+
+  mostrarTodos() {
+
     this.usariosService.getAllUsuarios().subscribe(resp => {
       this.usuarios = resp;
     },
@@ -84,7 +91,7 @@ export class UsuariosComponent implements OnInit {
   eliminar(usuario: any) {
     this, this.usariosService.deleteUsuario(usuario.id).subscribe(resp => {
       if (resp) {
-        this.usuarios.pop(usuario)
+        this.mostrarTodos();
         Swal.fire('usuario Eliminado ', 'completado', 'success');
 
       }

@@ -44,12 +44,19 @@ export class MascotasComponent implements OnInit {
 
 
 
+    this.mostrarTodos();
+  }
+
+  mostrarTodos() {
+
+
     this.mascotasService.getAllMascota().subscribe(resp => {
       this.mascotas = resp;
     },
       error => { console.error(error) }
     )
   }
+
   guardar(): void {
     if (this.mascotaForm.valid) {
       console.log(this.mascotaForm.value);
@@ -74,7 +81,8 @@ export class MascotasComponent implements OnInit {
   eliminar(mascotas: any) {
     this, this.mascotasService.deleteMascota(mascotas.id).subscribe(resp => {
       if (resp) {
-        this.mascotas.pop(mascotas)
+
+        this.mostrarTodos();
         Swal.fire('mascota eliminada Eliminado ', 'completado', 'success');
 
       }

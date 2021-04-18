@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class HistoriaClinicaComponent implements OnInit {
 
-  currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
   historias: any;
 
   mascotas: any;
@@ -34,11 +34,8 @@ export class HistoriaClinicaComponent implements OnInit {
       mascota: ['', Validators.required],
       fechaCreacion: [''],
     });
-    this.historiasClinicaService.getAllHistorias().subscribe(resp => {
-      this.historias = resp;
-    },
-      error => { console.error(error) }
-    )
+
+    this.mostrarTodos();
 
     this.mascotasService.getAllMascota().subscribe(resp => {
       this.mascotas = resp;
@@ -49,13 +46,14 @@ export class HistoriaClinicaComponent implements OnInit {
 
   }
 
+
+
   guardar(): void {
 
     if (this.historiaClinicaForm.valid) {
       console.log(this.historiaClinicaForm.value);
       this.historiasClinicaService.saveHistorias(this.historiaClinicaForm.value).subscribe(resp => {
         Swal.fire('usuario guardado ', 'completado', 'success');
-        console.error(this.currentTimeInSeconds);
         this.historiaClinicaForm.reset();
         this.historias = this.historias.filter((mascotas: { id: any; }) => resp.id != mascotas.id);
         this.historias.push(resp);
@@ -74,7 +72,7 @@ export class HistoriaClinicaComponent implements OnInit {
   eliminar(historias: any) {
     this, this.historiasClinicaService.deleteHistorias(historias.id).subscribe(resp => {
       if (resp) {
-        this.historias.pop(historias)
+        this.mostrarTodos();
         Swal.fire('mascota eliminada Eliminado ', 'completado', 'success');
 
       }
@@ -84,10 +82,18 @@ export class HistoriaClinicaComponent implements OnInit {
     this.historiaClinicaForm.setValue({
       id: historias.id,
       mascota: historias.mascota,
-
-
+      fechaCreacion: historias.fechaCreacion
 
     })
+  }
+  mostrarTodos() {
+
+    this.historiasClinicaService.getAllHistorias().subscribe(resp => {
+      this.historias = resp;
+    },
+      error => { console.error(error) }
+    )
+
   }
 
 
