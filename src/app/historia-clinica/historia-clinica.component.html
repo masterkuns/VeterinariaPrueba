@@ -5,9 +5,9 @@
       <label>id de la mascota </label>
       <select
         formControlName="mascota"
-        class="form-control"
         name="mascota"
         id="mascota"
+        class="form-control"
       >
         <option [ngValue]="item" *ngFor="let item of mascotas">
           {{ item.id }}
@@ -30,7 +30,7 @@
       <tr>
         <th>ID</th>
         <th>NOMBRE</th>
-        <th>fechaCreacion</th>
+        <th>Fecha de creacion</th>
         <th>OPCIONES</th>
       </tr>
     </thead>

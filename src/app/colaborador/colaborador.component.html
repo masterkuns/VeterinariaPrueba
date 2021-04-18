@@ -1,1 +1,105 @@
-<p>colaborador works!</p>
+<div class="formusuario">
+  <h2>Crear Usuario</h2>
+  <form [formGroup]="colaboradorForm" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input
+        type="text"
+        formControlName="nombre"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label>Apellido</label>
+      <input
+        type="text"
+        formControlName="apellido"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>cargo</label>
+      <select formControlName="cargo" class="form-control">
+        <option value="Veterinario">Veterinario</option>
+        <option value="Veterinario">ayudante</option>
+        <option value="auxiliar">auxiliar</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>especialidad</label>
+      <select formControlName="especialidad" class="form-control">
+        <option value="anesteciologo">anesteciologo</option>
+        <option value="cirujano">cirujano</option>
+        <option value="no tiene">No tiene</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Tipo Documento</label>
+      <select formControlName="tipoDocumento" class="form-control">
+        <option value="CC">Cedula de ciudadania</option>
+        <option value="TI">Tarjeta de identidad</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Numero Documento</label>
+      <input
+        type="number"
+        formControlName="documentoIdentificacion"
+        class="form-control required"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>
+
+<div class="">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>APELLIDO</th>
+        <th>CARGO</th>
+        <th>ESPECIALIDAD</th>
+        <th>TIPO DOCUMENTO</th>
+        <th>NUMERO DOCUMENTO</th>
+
+        <th>OPCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of colaborador">
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.apellido }}</td>
+        <td>{{ item.cargo }}</td>
+        <td>{{ item.especialidad }}</td>
+        <td>{{ item.tipoDocumento }}</td>
+        <td>{{ item.documentoIdentificacion }}</td>
+
+        <td>
+          <button
+            type="button"
+            class="btn btn-success formbtn"
+            (click)="editar(item)"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger formbtn"
+            (click)="eliminar(item)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
