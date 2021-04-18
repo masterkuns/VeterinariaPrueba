@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MascotasService {
-  private URL = "http://localhost:8082/mascota/";
+  private URL = "https://veterinariaprueba.herokuapp.com/mascota/";
   constructor(private httpClient: HttpClient) { }
 
 
