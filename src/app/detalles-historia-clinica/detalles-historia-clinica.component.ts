@@ -49,6 +49,7 @@ export class DetallesHistoriaClinicaComponent implements OnInit {
       colaborador: ['', Validators.required],
       historiaClinica: ['', Validators.required],
     });
+
     this.mostrarDatos();
 
     this.colaboradorService.getAllColaborador().subscribe(resp => {
@@ -102,13 +103,39 @@ export class DetallesHistoriaClinicaComponent implements OnInit {
   }
 
   eliminar(detalles: any) {
-    this, this.detallesClinicaService.deleteDetallesHistoriaClinica(detalles.id).subscribe(resp => {
-      if (resp) {
-        this.mostrarDatos();
-        Swal.fire('usuario Eliminado ', 'completado', 'success');
 
+
+    Swal.fire({
+      title: 'estas seguro?',
+      text: 'borrar detalles de la historia  ',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'si,borralo!',
+      cancelButtonText: 'No, cancela'
+    }).then((result) => {
+      if (result.value) {
+
+        this, this.detallesClinicaService.deleteDetallesHistoriaClinica(detalles.id).subscribe(resp => {
+          if (resp) {
+            this.mostrarDatos();
+            Swal.fire('Historia Eliminada ', 'completado', 'success');
+
+          }
+        })
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'el dato no fue eliminado)',
+          'error'
+        )
       }
     })
+
+
+
+
+
   }
 
   editar(detalles: any) {

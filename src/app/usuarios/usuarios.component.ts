@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from '../services/usuarios/usuarios.service';
-
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HistoriaClinicaService } from '../services/historiaClinica/historia-clinica.service';
 import { MascotasService } from '../services/mascotas/mascotas.service';
 import { DetallesHistoriaClinicaService } from '../services/detallesHistoriaClinica/detalles-historia-clinica.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { $$ } from 'protractor';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -34,7 +35,9 @@ export class UsuariosComponent implements OnInit {
     public historiaClinicaService: HistoriaClinicaService,
     public mascotasService: MascotasService,
 
-    public detallesHistoriaClinicaService: DetallesHistoriaClinicaService
+    public detallesHistoriaClinicaService: DetallesHistoriaClinicaService,
+
+    public dialog: MatDialog
   ) {
 
 
@@ -55,6 +58,22 @@ export class UsuariosComponent implements OnInit {
 
   }
 
+  get f() {
+
+    return this.usuarioForm.controls
+
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(UsuariosComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+
+
 
   mostrarTodos() {
 
@@ -74,7 +93,8 @@ export class UsuariosComponent implements OnInit {
         Swal.fire('usuario guardado ', 'completado', 'success');
         this.usuarioForm.reset();
         this.usuarios = this.usuarios.filter((usuario: { id: any; }) => resp.id != usuario.id);
-        this.usuarios.push(resp);
+
+        this.mostrarTodos()
 
 
       }, error => {
@@ -89,13 +109,36 @@ export class UsuariosComponent implements OnInit {
   }
 
   eliminar(usuario: any) {
-    this, this.usariosService.deleteUsuario(usuario.id).subscribe(resp => {
-      if (resp) {
-        this.mostrarTodos();
-        Swal.fire('usuario Eliminado ', 'completado', 'success');
+    Swal.fire({
+      title: 'estas seguro?',
+      text: 'al borrar este dato todos los archivos que dependan de este seran eliminados en cascda !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'si,borralo!',
+      cancelButtonText: 'No, cancela'
+    }).then((result) => {
+      if (result.value) {
 
+        this, this.usariosService.deleteUsuario(usuario.id).subscribe(resp => {
+          if (resp) {
+            this.mostrarTodos();
+            Swal.fire('usuario Eliminado ', 'completado', 'success');
+
+          }
+        })
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'el archivo no fue eliminado)',
+          'error'
+        )
       }
     })
+
+
+
+
   }
   editar(usuarios: any) {
     this.usuarioForm.setValue({

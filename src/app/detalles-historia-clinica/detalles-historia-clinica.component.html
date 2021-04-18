@@ -1,124 +1,125 @@
-<h2>Crear detalles de la historia clinica</h2>
-<form [formGroup]="detallesForm" (ngSubmit)="guardar()">
-  <div class="form-group">
-    <label>Temperatura</label>
-    <input type="text" formControlName="temperatura" class="form-control" />
+<div class="container">
+  <div class="formusuario">
+    <h2>Crear detalles de la historia clinica</h2>
+    <form [formGroup]="detallesForm" (ngSubmit)="guardar()">
+      <div class="form-group">
+        <label>Temperatura</label>
+        <input type="text" formControlName="temperatura" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Peso</label>
+        <input type="number" formControlName="peso" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Frecuencia cardiaca</label>
+        <input
+          type="number"
+          formControlName="frecuenciaCardiaca"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label>Frecuencia respiratora</label>
+        <input
+          type="number"
+          formControlName="frecuenciaRespiratoria"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label>Alimentacion</label>
+        <input
+          type="text"
+          formControlName="alimentacion"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label>Habitad</label>
+        <input type="text" formControlName="habitad" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Observacion</label>
+        <input type="text" formControlName="observacion" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Nombre colaborador</label>
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="colaborador"
+          class="form-control"
+        >
+          <option [ngValue]="item" *ngFor="let item of colaboradores">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Numero historia clinica</label>
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="historiaClinica"
+          class="form-control"
+        >
+          <option [ngValue]="item" *ngFor="let item of historias">
+            {{ item.id }}
+          </option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        [disabled]="detallesForm.invalid"
+        class="btn btn-primary"
+      >
+        Guardar
+      </button>
+    </form>
   </div>
-  <div class="form-group">
-    <label>Peso</label>
-    <input type="number" formControlName="peso" class="form-control" />
+  <div class="formusuarios">
+    <div class="table-responsive">
+      <table class="table table-striped w-auto">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>TEMPERATURA</th>
+            <th>PESO</th>
+            <th>FREC. CARDIACA</th>
+            <th>FREC. RESPIRATORIA</th>
+            <th>FECHA HORA</th>
+            <th>ALIMENTACION</th>
+            <th>HABITAD</th>
+            <th>OBSERVACION</th>
+            <th>COLABORADOR</th>
+            <th>HISTORIA CLINICA</th>
+            <th>OPCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of detalles">
+            <td>{{ item.id }}</td>
+            <td>{{ item.temperatura }}</td>
+            <td>{{ item.peso }}</td>
+            <td>{{ item.frecuenciaCardiaca }}</td>
+            <td>{{ item.frecuenciaRespiratoria }}</td>
+            <td>{{ item.fechaHora }}</td>
+            <td>{{ item.alimentacion }}</td>
+            <td>{{ item.habitad }}</td>
+            <td>{{ item.observacion }}</td>
+            <td>{{ item.colaborador.nombre }}</td>
+            <td>{{ item.historiaClinica.id }}</td>
+            <td>
+              <button mat-raised-button color="warn" (click)="eliminar(item)">
+                eliminar
+              </button>
+              <button mat-raised-button color="primary" (click)="editar(item)">
+                Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="form-group">
-    <label>Frecuencia cardiaca</label>
-    <input
-      type="number"
-      formControlName="frecuenciaCardiaca"
-      class="form-control"
-    />
-  </div>
-  <div class="form-group">
-    <label>Frecuencia rrespiratora</label>
-    <input
-      type="number"
-      formControlName="frecuenciaRespiratoria"
-      class="form-control"
-    />
-  </div>
-  <div class="form-group">
-    <label>Alimentacion</label>
-    <input type="text" formControlName="alimentacion" class="form-control" />
-  </div>
-  <div class="form-group">
-    <label>Habitad</label>
-    <input type="text" formControlName="habitad" class="form-control" />
-  </div>
-  <div class="form-group">
-    <label>Observacion</label>
-    <input type="text" formControlName="observacion" class="form-control" />
-  </div>
-  <div class="form-group">
-    <label>Nombre colaborador</label>
-    <select
-      class="form-select"
-      aria-label="Default select example"
-      formControlName="colaborador"
-      class="form-control"
-    >
-      <option [ngValue]="item" *ngFor="let item of colaboradores">
-        {{ item.id }}
-      </option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Numero historia clinica</label>
-    <select
-      class="form-select"
-      aria-label="Default select example"
-      formControlName="historiaClinica"
-      class="form-control"
-    >
-      <option [ngValue]="item" *ngFor="let item of historias">
-        {{ item.id }}
-      </option>
-    </select>
-  </div>
-  <button
-    type="submit"
-    [disabled]="detallesForm.invalid"
-    class="btn btn-primary"
-  >
-    Guardar
-  </button>
-</form>
-
-<div class="">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>TEMPERATURA</th>
-        <th>PESO</th>
-        <th>FREC. CARDIACA</th>
-        <th>FREC. RESPIRATORIA</th>
-        <th>FECHA HORA</th>
-        <th>ALIMENTACION</th>
-        <th>HABITAD</th>
-        <th>OBSERVACION</th>
-        <th>COLABORADOR</th>
-        <th>HISTORIA CLINICA</th>
-        <th>OPCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of detalles">
-        <td>{{ item.id }}</td>
-        <td>{{ item.temperatura }}</td>
-        <td>{{ item.peso }}</td>
-        <td>{{ item.frecuenciaCardiaca }}</td>
-        <td>{{ item.frecuenciaRespiratoria }}</td>
-        <td>{{ item.fechaHora }}</td>
-        <td>{{ item.alimentacion }}</td>
-        <td>{{ item.habitad }}</td>
-        <td>{{ item.observacion }}</td>
-        <td>{{ item.colaborador.nombre }}</td>
-        <td>{{ item.historiaClinica.id }}</td>
-        <td>
-          <button
-            type="button"
-            class="btn btn-success formbtn"
-            (click)="editar(item)"
-          >
-            Editar
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger formbtn"
-            (click)="eliminar(item)"
-          >
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

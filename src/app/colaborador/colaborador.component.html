@@ -1,5 +1,5 @@
 <div class="formusuario">
-  <h2>Crear Usuario</h2>
+  <h2>Crear Colaborador</h2>
   <form [formGroup]="colaboradorForm" (ngSubmit)="guardar()">
     <div class="form-group">
       <label>Nombre</label>
@@ -58,48 +58,42 @@
   </form>
 </div>
 
-<div class="">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>NOMBRE</th>
-        <th>APELLIDO</th>
-        <th>CARGO</th>
-        <th>ESPECIALIDAD</th>
-        <th>TIPO DOCUMENTO</th>
-        <th>NUMERO DOCUMENTO</th>
+<div class="formusuario">
+  <div class="table-responsive">
+    <table class="table table-striped w-auto">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NOMBRE</th>
+          <th>APELLIDO</th>
+          <th>CARGO</th>
+          <th>ESPECIALIDAD</th>
+          <th>TIPO DOCUMENTO</th>
+          <th>NUMERO DOCUMENTO</th>
 
-        <th>OPCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of colaborador">
-        <td>{{ item.id }}</td>
-        <td>{{ item.nombre }}</td>
-        <td>{{ item.apellido }}</td>
-        <td>{{ item.cargo }}</td>
-        <td>{{ item.especialidad }}</td>
-        <td>{{ item.tipoDocumento }}</td>
-        <td>{{ item.documentoIdentificacion }}</td>
+          <th>OPCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of colaborador">
+          <td>{{ item.id }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.apellido }}</td>
+          <td>{{ item.cargo }}</td>
+          <td>{{ item.especialidad }}</td>
+          <td>{{ item.tipoDocumento }}</td>
+          <td>{{ item.documentoIdentificacion }}</td>
 
-        <td>
-          <button
-            type="button"
-            class="btn btn-success formbtn"
-            (click)="editar(item)"
-          >
-            Editar
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger formbtn"
-            (click)="eliminar(item)"
-          >
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td>
+            <button mat-raised-button color="warn" (click)="eliminar(item)">
+              eliminar
+            </button>
+            <button mat-raised-button color="primary" (click)="editar(item)">
+              Editar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

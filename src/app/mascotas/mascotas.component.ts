@@ -79,14 +79,39 @@ export class MascotasComponent implements OnInit {
   }
 
   eliminar(mascotas: any) {
-    this, this.mascotasService.deleteMascota(mascotas.id).subscribe(resp => {
-      if (resp) {
 
-        this.mostrarTodos();
-        Swal.fire('mascota eliminada Eliminado ', 'completado', 'success');
+    Swal.fire({
+      title: 'estas seguro?',
+      text: 'al borrar esta mascota los tambien se elminaran los datos de historia y detalles! ',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'si,borralo!',
+      cancelButtonText: 'No, cancela'
+    }).then((result) => {
+      if (result.value) {
 
+        this, this.mascotasService.deleteMascota(mascotas.id).subscribe(resp => {
+          if (resp) {
+
+            this.mostrarTodos();
+            Swal.fire('mascota eliminada Eliminado ', 'completado', 'success');
+
+          }
+        })
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'el dato no fue eliminado)',
+          'error'
+        )
       }
     })
+
+
+
+
+
   }
 
   editar(mascota: any) {

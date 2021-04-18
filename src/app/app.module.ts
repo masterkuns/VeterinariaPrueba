@@ -20,7 +20,12 @@ import { HistoriaClinicaComponent } from './historia-clinica/historia-clinica.co
 import { ColaboradorComponent } from './colaborador/colaborador.component';
 import { DetallesHistoriaClinicaComponent } from './detalles-historia-clinica/detalles-historia-clinica.component';
 
+import { TableModule } from 'primeng/table';
+import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
+import { MenuItem } from 'primeng/api';                  //api
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,11 @@ import { DetallesHistoriaClinicaComponent } from './detalles-historia-clinica/de
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
+    MatTableModule,
     ReactiveFormsModule,
+    TableModule,
+    AccordionModule,
+    MatDialogModule,
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     BrowserAnimationsModule

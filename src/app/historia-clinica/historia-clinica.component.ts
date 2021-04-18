@@ -71,13 +71,36 @@ export class HistoriaClinicaComponent implements OnInit {
     }
   }
   eliminar(historias: any) {
-    this, this.historiasClinicaService.deleteHistorias(historias.id).subscribe(resp => {
-      if (resp) {
-        this.mostrarTodos();
-        Swal.fire('mascota eliminada Eliminado ', 'completado', 'success');
 
+
+    Swal.fire({
+      title: 'estas seguro?',
+      text: 'al borrar esta historia tambien se borraran todos los detalles almacenados! ',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'si,borralo!',
+      cancelButtonText: 'No, cancela'
+    }).then((result) => {
+      if (result.value) {
+
+        this, this.historiasClinicaService.deleteHistorias(historias.id).subscribe(resp => {
+          if (resp) {
+            this.mostrarTodos();
+            Swal.fire('historia  eliminada  ', 'completado', 'success');
+
+          }
+        })
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'el dato no fue eliminado)',
+          'error'
+        )
       }
     })
+
+
   }
   editar(historias: any) {
     this.historiaClinicaForm.setValue({
