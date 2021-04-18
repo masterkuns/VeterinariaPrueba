@@ -5,6 +5,7 @@ import { HistoriaClinicaService } from '../services/historiaClinica/historia-cli
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { DetallesHistoriaClinicaService } from '../services/detallesHistoriaClinica/detalles-historia-clinica.service';
+import { ColaboradorService } from '../services/colaborador/colaborador.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,15 +16,17 @@ import Swal from 'sweetalert2';
 export class DetallesHistoriaClinicaComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
-    public detallesClinicaService: DetallesHistoriaClinicaService) { }
-
-
+    public detallesClinicaService: DetallesHistoriaClinicaService,
+    public colaboradorService: ColaboradorService,
+    public historiasClinicaService: HistoriaClinicaService) { }
+  historias: any;
+  colaboradores: any;
   detalles: any;
   detallesForm = new FormGroup({
     temperatura: new FormControl(),
     peso: new FormControl(),
     frecuenciaCardiaca: new FormControl(),
-    fecha_Hora: new FormControl(),
+    fechaHora: new FormControl(),
     frecuenciaRespiratoria: new FormControl(),
     alimentacion: new FormControl(),
     habitad: new FormControl(),
@@ -38,7 +41,7 @@ export class DetallesHistoriaClinicaComponent implements OnInit {
       temperatura: ['', Validators.required],
       peso: ['', Validators.required],
       frecuenciaCardiaca: ['', Validators.required],
-      fecha_Hora: [''],
+      fechaHora: [''],
       frecuenciaRespiratoria: ['', Validators.required],
       alimentacion: ['', Validators.required],
       habitad: ['', Validators.required],
@@ -47,6 +50,20 @@ export class DetallesHistoriaClinicaComponent implements OnInit {
       historiaClinica: ['', Validators.required],
     });
     this.mostrarDatos();
+
+    this.colaboradorService.getAllColaborador().subscribe(resp => {
+      this.colaboradores = resp;
+    },
+      error => { console.error(error) }
+    )
+
+
+    this.historiasClinicaService.getAllHistorias().subscribe(resp => {
+      this.historias = resp;
+    },
+      error => { console.error(error) }
+    )
+
   }
 
 
@@ -69,7 +86,7 @@ export class DetallesHistoriaClinicaComponent implements OnInit {
       this.detallesClinicaService.saveDetallesHistoriaClinica(this.detallesForm.value).subscribe(resp => {
         Swal.fire('usuario guardado ', 'completado', 'success');
         this.detallesForm.reset();
-        this.detalles = this.detalles.filter((usuario: { id: any; }) => resp.id != usuario.id);
+        this.detalles = this.detalles.filter((detalles: { id: any; }) => resp.id != this.detalles.id);
         this.detalles.push(resp);
 
 
@@ -98,8 +115,9 @@ export class DetallesHistoriaClinicaComponent implements OnInit {
     this.detallesForm.setValue({
       id: detalles.id,
       temperatura: detalles.temperatura,
+      peso: detalles.peso,
       frecuenciaCardiaca: detalles.frecuenciaCardiaca,
-      fecha_hora: detalles.fecha_hora,
+      fechaHora: detalles.fechaHora,
       frecuenciaRespiratoria: detalles.frecuenciaRespiratoria,
       alimentacion: detalles.alimentacion,
       habitad: detalles.habitad,

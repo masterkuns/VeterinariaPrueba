@@ -5,6 +5,7 @@ import { HistoriaClinicaService } from '../services/historiaClinica/historia-cli
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { MascotasService } from '../services/mascotas/mascotas.service';
+import { DetallesHistoriaClinicaService } from '../services/detallesHistoriaClinica/detalles-historia-clinica.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-historia-clinica',
@@ -55,7 +56,7 @@ export class HistoriaClinicaComponent implements OnInit {
       this.historiasClinicaService.saveHistorias(this.historiaClinicaForm.value).subscribe(resp => {
         Swal.fire('usuario guardado ', 'completado', 'success');
         this.historiaClinicaForm.reset();
-        this.historias = this.historias.filter((mascotas: { id: any; }) => resp.id != mascotas.id);
+        this.historias = this.historias.filter((historias: { id: any; }) => resp.id != historias.id);
         this.historias.push(resp);
 
 

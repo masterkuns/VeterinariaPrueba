@@ -60,7 +60,7 @@ export class ColaboradorComponent implements OnInit {
       this.ColaboradorService.saveColaborador(this.colaboradorForm.value).subscribe(resp => {
         Swal.fire('usuario guardado ', 'completado', 'success');
         this.colaboradorForm.reset();
-        this.colaborador = this.colaborador.filter((usuario: { id: any; }) => resp.id != usuario.id);
+        this.colaborador = this.colaborador.filter((colaborador: { id: any; }) => resp.id != colaborador.id);
         this.colaborador.push(resp);
 
 
