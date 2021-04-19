@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+let headersReq = new HttpHeaders({
+  'Content-Type': 'application/json; charset=utf-8',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET',
+  'Access-Control-Allow-Origin': '*'
+});
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +21,7 @@ export class UsuariosService {
 
 
   public getAllUsuarios(): Observable<any> {
-    return this.httpClient.get(this.URL);
+    return this.httpClient.get(this.URL, { headers: headersReq });
   }
 
   public saveUsuario(usuario: any): Observable<any> {
